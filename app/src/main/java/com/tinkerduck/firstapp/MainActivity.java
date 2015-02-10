@@ -32,6 +32,7 @@ public class MainActivity extends Activity {
     public static final String EXTRA_MESSAGE = "com.tinkerduck.firstapp.MESSAGE";
     public static final String EXTRA_FD = "com.tinkerduck.firstapp.FD";
     public static final String EXTRA_NOTE = "com.tinkerduck.firstapp.NOTE";
+    public static final String EXTRA_SELECTION = "com.tinkerduck.firstapp.SELECTION";
     public static final String editMode = "com.tinkerduck.firstapp.EDIT";
     public static final String filename = "myFile";
     private MySqliteHelper db;
@@ -116,6 +117,11 @@ public class MainActivity extends Activity {
                                 // The 'which' argument contains the index position
                                 // of the selected item
                                 Log.d("The Pizza You Chose:", pizzaList.get(which));
+                                Intent editNoteIntent = new Intent(getApplicationContext(), EditNoteActivity.class);
+                                editNoteIntent.putExtra(editMode, false);
+                                editNoteIntent.putExtra(EXTRA_SELECTION, which);
+                                startActivityForResult(editNoteIntent, 1);
+
                             }
                         });
                 builder.create().show();

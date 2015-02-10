@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pizza_array" >
+        <item>Pepperoni</item>
+        <item>Sarah</item>
+        <item>BBQ Chicken yum yum yum</item>
+        <item>Sausage with other stuff</item>
+    </string-array>
+</resources>
