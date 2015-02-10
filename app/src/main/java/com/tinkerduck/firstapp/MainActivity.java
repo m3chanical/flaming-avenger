@@ -1,11 +1,14 @@
 package com.tinkerduck.firstapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -92,7 +96,7 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long 
+        // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch(item.getItemId()) {
             case(R.id.action_search):
@@ -103,9 +107,21 @@ public class MainActivity extends Activity {
                 return true;
             case(R.id.action_add_note):
                 //TODO: Add Alert Dialog to select Note Type, then start intent using that data.
-                Intent editNoteIntent = new Intent(this, EditNoteActivity.class);
-                editNoteIntent.putExtra(editMode, false);
-                startActivityForResult(editNoteIntent, 1);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                final List<String> pizzaList = Arrays.asList(getResources().getStringArray(R.array.pizza_array));
+
+                builder.setTitle("Choose Your Favorite Pizza")
+                        .setItems(R.array.pizza_array, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // The 'which' argument contains the index position
+                                // of the selected item
+                                Log.d("The Pizza You Chose:", pizzaList.get(which));
+                            }
+                        });
+                builder.create().show();
+                //Intent editNoteIntent = new Intent(this, EditNoteActivity.class);
+                //editNoteIntent.putExtra(editMode, false);
+                //startActivityForResult(editNoteIntent, 1);
                 return true;
             case(R.id.action_test_data):
                 db.addNote(new Notes("Sandwich", "Sandwiches are Tasty", "gibberish"));
