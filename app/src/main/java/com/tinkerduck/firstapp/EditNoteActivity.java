@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by m3chanical on 1/24/15.
@@ -24,6 +26,7 @@ public class EditNoteActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+        final List<String> pizzaList = Arrays.asList(getResources().getStringArray(R.array.pizza_array));
 
         final EditText titleEditText = (EditText)findViewById(R.id.titleEditText);
         final EditText typeEditText = (EditText)findViewById(R.id.typeEditText);
@@ -36,6 +39,11 @@ public class EditNoteActivity extends Activity {
             titleEditText.setText(note.getTitle());
             typeEditText.setText(note.getNoteType());
             bodyEditText.setText(note.getNoteBody());
+        }
+        int selection = getIntent().getIntExtra(MainActivity.EXTRA_SELECTION, -1);
+        if(selection != -1) {
+            titleEditText.setText(String.valueOf(selection));
+            bodyEditText.setText(pizzaList.get(selection));
         }
 
 
