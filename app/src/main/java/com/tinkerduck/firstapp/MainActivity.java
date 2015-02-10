@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // automatically handle clicks on the Home/Up button, so long 
         // as you specify a parent activity in AndroidManifest.xml.
         switch(item.getItemId()) {
             case(R.id.action_search):
@@ -102,6 +102,7 @@ public class MainActivity extends Activity {
                 //openSettings();
                 return true;
             case(R.id.action_add_note):
+                //TODO: Add Alert Dialog to select Note Type, then start intent using that data.
                 Intent editNoteIntent = new Intent(this, EditNoteActivity.class);
                 editNoteIntent.putExtra(editMode, false);
                 startActivityForResult(editNoteIntent, 1);
