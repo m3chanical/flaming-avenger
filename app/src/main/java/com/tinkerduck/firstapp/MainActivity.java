@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.ContactsContract;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,21 +21,28 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
+import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
     public static final String EXTRA_MESSAGE = "com.tinkerduck.firstapp.MESSAGE";
     public static final String EXTRA_FD = "com.tinkerduck.firstapp.FD";
     public static final String EXTRA_NOTE = "com.tinkerduck.firstapp.NOTE";
     public static final String EXTRA_SELECTION = "com.tinkerduck.firstapp.SELECTION";
     public static final String editMode = "com.tinkerduck.firstapp.EDIT";
     public static final String filename = "myFile";
+    private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd yyyy hh:mm aa");
+
     private MySqliteHelper db;
     private ListView notesListView;
     private List<Notes> notesList;
@@ -101,7 +109,24 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch(item.getItemId()) {
             case(R.id.action_search):
-                //openSearch();
+                SlideDateTimeListener listener = new SlideDateTimeListener() {
+                    @Override
+                    public void onDateTimeSet(Date date) {
+                        Toast.makeText(MainActivity.this,
+                                mFormatter.format(date), Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onDateTimeCancel(){
+                        Toast.makeText(MainActivity.this,
+                                "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                };
+                new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                        .setListener(listener)
+                        .setInitialDate(new Date())
+                        .build()
+                        .show();
+
                 return true;
             case(R.id.action_settings):
                 //openSettings();
