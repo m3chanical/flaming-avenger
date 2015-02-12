@@ -107,7 +107,6 @@ public class MainActivity extends Activity {
                 //openSettings();
                 return true;
             case(R.id.action_add_note):
-                //TODO: Add Alert Dialog to select Note Type, then start intent using that data.
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 final List<String> pizzaList = Arrays.asList(getResources().getStringArray(R.array.pizza_array));
 
